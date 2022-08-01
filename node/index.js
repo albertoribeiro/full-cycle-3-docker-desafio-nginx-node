@@ -15,6 +15,8 @@ const config = {
 const conn = mysql.createConnection(config)
 const query = util.promisify(conn.query).bind(conn);
  
+conn.query(`CREATE TABLE IF NOT EXISTS  people (id int not null auto_increment, name varchar(255), primary key(id))`);
+
 app.get('/',  async (req,res)  =>  {
 
   try {
@@ -35,7 +37,7 @@ app.get('/',  async (req,res)  =>  {
   }
  
 })
- 
+  
 async function insertPerson(){
   try {
     await query(`Insert into people (name) values ('${random_name()}') `);
